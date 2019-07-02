@@ -1,0 +1,9 @@
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_button/mixins';
+header.material-header{
+  background-color: $mat-blue;
+  color: $mat-white;
+  z-index:auto; 
+  background-position: center;
+}
+

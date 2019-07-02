@@ -1,0 +1,15 @@
+<header class="material-header shadow">
+  <div class="material-header-row">
+    <span class="material-header-title">Suture Evaluation App</span>
+    <div class="material-spacer"></div>
+    <div *ngIf="client.user == null">
+      <material-button (click)="signIn">Sign In</material-button>
+    </div>
+    <div *ngIf="client.user != null">
+      <span>{{client.user.displayName}}</span>
+      <material-button (click)="signOut">Sign Out</material-button>
+    </div>
+  </div>
+</header>
+<image-editor></image-editor>
+

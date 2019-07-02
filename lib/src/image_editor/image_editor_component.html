@@ -1,0 +1,53 @@
+<div class="suture-eval-kit" [style.width.px]="canvasWidth">
+  <div class="toolbox" id="image-editor-toolbox">
+    <h2>Evaluation Toolbox</h2>
+    <input id="photo-file-input" type="file" accept="image/*" hidden (change)="drawImage($event)" baseline 
+    [disabled]="client.user == null" />
+    <material-button id="input-file-button" (click)="onFileInputClicked" 
+      [disabled]="client.user == null" materialTooltip="Choose Image File" baseline>
+      <material-icon icon="attach_file" materialTooltip="Choose Photo File" baseline></material-icon>{{imageFileName}}
+    </material-button>
+    <material-button id="trace-mode-button" (click)="trace" materialTooltip="Trace Suture"
+      [disabled]="imageFile == null" [class.active]="imageFile != null && toolMode == EditorToolMode.tracing" baseline>
+      <material-icon icon="edit" baseline></material-icon>
+      Trace
+    </material-button>
+    <material-button id="erase-mode-button" (click)="erase" materialTooltip="Eraser" [disabled]="imageFile == null"
+      [class.active]="imageFile != null && toolMode == EditorToolMode.erasing" baseline>
+      <material-icon icon="clear" baseline></material-icon>
+      Erase
+    </material-button>
+    <material-button id="clear-mode-button" (click)="clear" materialTooltip="Clear" [disabled]="imageFile == null"
+      [class.active]="imageFile != null && toolMode == EditorToolMode.clearing" baseline>
+      <material-icon icon="refresh" baseline></material-icon>
+      Clear
+    </material-button>
+    <material-button id="upload-mode-button" (click)="uploadTracedImageToStorage" [disabled]="imageFile == null"
+      materialTooltip="Upload" baseline>
+      <material-icon icon="publish" baseline></material-icon>
+      Upload
+    </material-button>
+    <acx-scorecard label="Your Score" [value]="totalScore" id="total-score">
+    </acx-scorecard>
+  </div>
+  <material-progress [indeterminate]="!isEvalFinished && imageFile != null"></material-progress>
+  <div class="editor-canvas" id="tracing-area" [style.width.px]="canvasWidth" [style.height.px]="canvasHeight">
+    <canvas id="raw-canvas"></canvas>
+    <canvas id="tracing-canvas"></canvas>
+  </div>
+  <div class="subjective-score">
+    <span id="low-score">1</span>
+    <material-slider id="subjective-score-value" 
+      [(value)]="subjectiveScore" [min]="1" [max]="5" [step]="1"></material-slider>
+    <span id="high-score">5</span>
+    <label id="subjective-score-label">Subjective Score: {{subjectiveScore}}</label>
+  </div>
+
+  <div class="outcome">
+    <h2>Result</h2>
+    <span><label>Bite CV: {{biteCV}}</label></span>
+    <span><label>Pitch CV: {{pitchCV}}</label></span>
+    <span><label>Skewness: {{skewness}}</label></span>
+    <span><label>Score: {{totalScore}}</label></span>
+  </div>
+</div>
