@@ -43,25 +43,34 @@ def get_suture_lines_profile_list(contours):
     length_list = []
     center_list = []
     direction_vec = []
+    detected_lines = []
 
     for cnt in contours:
         (x, y), radius = cv2.minEnclosingCircle(cnt)
         data = np.array(cnt, dtype=np.float).reshape((cnt.shape[0], cnt.shape[2]))
-
-        # Principal Component Analysis
         mean, eigvec = cv2.PCACompute(
             data, mean=np.array([], dtype=np.float), maxComponents=1
         )
-        direction_vec.append(eigvec[0])
-
-        # edge point of a suture line
+        direction = eigvec[0]
         left = ((x - radius * eigvec[0][0]), (y - radius * eigvec[0][1]))
         right = ((x + radius * eigvec[0][0]), (y + radius * eigvec[0][1]))
-        # suture line vector
         sut_vec = np.array([right[0] - left[0], right[1] - left[1]])
+        length = np.linalg.norm(sut_vec)
+        cnt_feature = {
+            "center_x": x,
+            "center_y": y,
+            "length": length,
+            "direction": direction,
+        }
+        detected_lines.append(cnt_feature)
 
-        length_list.append(np.linalg.norm(sut_vec))
-        center_list.append(np.array([x, y]))
+    # suture lines MUST BE ALIGNED in the direction of X Axis
+    detected_lines.sort(key=lambda x: x["center_x"])
+
+    for cnt in detected_lines:
+        center_list.append(np.array([cnt["center_x"], cnt["center_y"]]))
+        direction_vec.append(cnt["direction"])
+        length_list.append(cnt["length"])
 
     return (length_list, center_list, direction_vec)
 
