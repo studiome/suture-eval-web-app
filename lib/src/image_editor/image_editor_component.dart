@@ -68,7 +68,7 @@ class ImageEditorComponent implements OnInit {
     _isDrawing = false;
     biteCV = pitchCV = skewness = totalScore = '-----';
     isEvalFinished = true;
-    subjectiveScore = 3;
+    subjectiveScore = 5;
   }
 
   void onFileInputClicked() {
@@ -76,7 +76,7 @@ class ImageEditorComponent implements OnInit {
   }
 
   void drawImage(Event event) {
-    subjectiveScore = 3;
+    subjectiveScore = 5;
     _tracedIamgeCanavas = querySelector('#tracing-canvas');
     _tracedCtx = _tracedIamgeCanavas.getContext('2d');
 

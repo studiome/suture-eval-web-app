@@ -1,10 +1,10 @@
 <div class="suture-eval-kit" [style.width.px]="canvasWidth">
   <div class="toolbox" id="image-editor-toolbox">
     <h2>Evaluation Toolbox</h2>
-    <input id="photo-file-input" type="file" accept="image/*" hidden (change)="drawImage($event)" baseline 
-    [disabled]="client.user == null" />
-    <material-button id="input-file-button" (click)="onFileInputClicked" 
-      [disabled]="client.user == null" materialTooltip="Choose Image File" baseline>
+    <input id="photo-file-input" type="file" accept="image/*" hidden (change)="drawImage($event)" baseline
+      [disabled]="client.user == null" />
+    <material-button id="input-file-button" (click)="onFileInputClicked" [disabled]="client.user == null"
+      materialTooltip="Choose Image File" baseline>
       <material-icon icon="attach_file" materialTooltip="Choose Photo File" baseline></material-icon>{{imageFileName}}
     </material-button>
     <material-button id="trace-mode-button" (click)="trace" materialTooltip="Trace Suture"
@@ -37,8 +37,8 @@
   </div>
   <div class="subjective-score">
     <span id="low-score">1</span>
-    <material-slider id="subjective-score-value" 
-      [(value)]="subjectiveScore" [min]="1" [max]="5" [step]="1"></material-slider>
+    <material-slider id="subjective-score-value" [(value)]="subjectiveScore" [min]="1" [max]="10" [step]="1">
+    </material-slider>
     <span id="high-score">5</span>
     <label id="subjective-score-label">Subjective Score: {{subjectiveScore}}</label>
   </div>
