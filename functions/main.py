@@ -81,7 +81,7 @@ def get_suture_line_eval(length_list, center_list, direction_vec):
         return None
 
     pitch_list = [
-        np.linalg.norm(np.array([center_list[i], center_list[i + 1]]))
+        np.linalg.norm(np.array([center_list[i + 1] - center_list[i]]))
         for i in range(len(center_list) - 1)
     ]
 
